@@ -1,0 +1,23 @@
+Jakub Dragosz 20.03.2024
+
+Jak skompilować programy:
+=========================
+Aby skompilować a.c:
+make compile1
+Aby skompilować b.c:
+make compile2
+Aby skompilować c.c:
+make compile3
+Aby skompilować d.c:
+make compile4
+Aby skompilować e.c:
+make compile5
+
+Aby wyczyscic zawartosc katalogu (usunac zbedne pliki), nalezy wykonac:
+    make clean
+
+W celu archiwizacji oraz kompresji katalogu nalezy wykonac:
+    make tar
+
+Aby odpalić program należy użyć:
+    ./a.out

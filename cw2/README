@@ -1,0 +1,24 @@
+Jakub Dragosz 25.03.2024
+
+Program cw2.c sluzy do wykonania funkcji fork 3 razy a w nim wywouje sie funkcja execlp, ktora wywoluje plik ktory ma byc argumentem wywolania programu a.out
+Program potome.c printuje dane mu z cw2.c pid,gid,ppid,pgid i uid
+Aby uruchomic program nalezy uzyc polecenia:
+a.out <nazwa_pliku>
+np:
+a.out potomne.out
+
+Jak skompilować programy:
+=========================
+Aby skompilować cw2.c:
+    make compile1
+Aby skompilować potome.c 
+    make compile2
+
+Aby wyczyscic zawartosc katalogu (usunac zbedne pliki), nalezy wykonac:
+    make clean
+
+W celu archiwizacji oraz kompresji katalogu nalezy wykonac:
+    make tar
+
+Aby odpalić program należy użyć:
+    ./a.out
