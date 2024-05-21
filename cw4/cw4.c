@@ -7,7 +7,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-#define BUFFER_SIZE 8
+#define BUFFER_SIZE 280
 
 int main(int argc, char *argv[])
 {
@@ -38,6 +38,7 @@ int main(int argc, char *argv[])
     case 0:
     {
         // proces potomny
+        // PRODUECNT
         char buffer[BUFFER_SIZE];
         close(filedes[0]);
         fd_in = open(argv[1], O_RDONLY);
@@ -48,6 +49,7 @@ int main(int argc, char *argv[])
         }
         while ((bytes_read = read(fd_in, buffer, sizeof(buffer))) > 0)
         {
+            sleep(1);
             ssize_t saved = write(filedes[1], buffer, bytes_read);
             printf("Wyslano za pomoca potoku do consumera: %s\n", buffer);
             if (saved == -1)
@@ -65,7 +67,7 @@ int main(int argc, char *argv[])
     default:
     {
         // proces macierzysty
-        wait(NULL);
+        // KONSUMENT
         close(filedes[1]);
         char buffer[BUFFER_SIZE];
         fd_out = open(argv[2], O_WRONLY | O_TRUNC);
@@ -76,7 +78,8 @@ int main(int argc, char *argv[])
         }
         while ((bytes_read = read(filedes[0], buffer, sizeof(buffer))) > 0)
         {
-            ssize_t bytes_written = write(fd_out, buffer, sizeof(buffer));
+            sleep(2);
+            ssize_t bytes_written = write(fd_out, buffer, bytes_read);
             printf("Odebrano od consumera: %s\n", buffer);
             if (bytes_written == -1)
             {
@@ -94,6 +97,8 @@ int main(int argc, char *argv[])
             close(filedes[0]);
             exit(EXIT_FAILURE);
         }
+
+        wait(NULL);
 
         close(fd_out);
         close(filedes[0]);

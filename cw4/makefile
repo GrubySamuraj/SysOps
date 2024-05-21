@@ -6,8 +6,8 @@ OUTPUT_TAR = cw3.tar.gz
 CFLAGS = -Wall -pedantic -O 
 LFLAGS = -Wall -std=c99 -pedantic -O 
 SOURCES = cw4.c
-READFILE = producent.txt
-WRITEFILE = consumer.txt
+READFILE ?= producent.txt
+WRITEFILE ?= consumer.txt
 EXECUTABLES = $(SOURCES:%.c=$(OUTPUT_DIR)/%)
 
 all: $(EXECUTABLES)

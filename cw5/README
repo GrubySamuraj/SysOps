@@ -1,35 +1,23 @@
-Jakub Dragosz 06.04.2024
+Jakub Dragosz 22.04.2024
 
-Program cw3a ma mozliwosc wyboru co zrobic z sygnalem SIGTSTP (kombinacja CTRL+Z)
-./cw3a <opcja> <id_sygnalu> np. ../cw3a 1 20, gdzie mozna wybierac:
-0 oznacza operacje domyslna
-1 oznacza przekazanie do funkcji, ktora sprintuje komunikat
-2 oznacza zignorowanie
+Program cw5a implementuje problem producenta i konsumenta z wykorzystaniem potoków nazwanych, wywołuje on forka, za pomocą forka,
+gdzie proces macierzysty to serwer i odczytuje on pliki z pierwszego parametru, a proces potomny to klient i 
+zapisuje on pliki do drugiego parametru wywołania.
+
+Program cw5b implementuje problem producenta i konsumenta z wykorzystaniem potoków nazwanych, wywołuje on forka, a w środku wywołuje
+execlp aby uruchomic program child.c oraz parent.c, analogicznie działa do programu cw5a
 
 Jak skompilować programy:
 =========================
-Aby skompilować i uruchomic cw3a.c:
-    make run_cw3a
+Aby skompilować programy, bez wywoływanie należy użyć funkcji:
+    make all
 
-cw3b wywoluje forka razem z execlp i wywoluje w nim cw3a, pozniej w procesie macierzystym wypisuje PID oraz
-wysyla sygnal uzytkownika do procesu potomnego, uprzednio sprawdzajac czy on istnieje (poprzez funkcje kill),
-czeka az proces potomny sie wykona oraz sprawdza za pomoca makra w jaki sposob wyszedl proces, czy poprzez sygnal
-czy samoistnie. Pod koniec wypisuje PID procesu potomnego, status oraz id sygnalu oraz nazwe sygnalu.
 
-Aby skompilować i uruchomic cw3b.c oraz wczesniej skompilowac cw3a:
-    make run_cw3b
+Aby skompilować i uruchomic cw5a.c:
+    make run_cw5a
 
-Program cw3c sluzy do uzycia funkcji fork z execlp, gdzie najpierw zmieniamy potomka na wlasciciela grupy, zmieniajac pgid
-na jego pid, pozniej odpalamy program forkleader.c, ten zas sluzy do wywolania fork-execlp 3 razy i wywolania programu
-cw3a.c z parametrem 1 i 10, co oznacza, ze program ten wywola funkcje ktora wypisze pid i pgid tego procesu, a 10 to id
-sygnalu ktory wywoluje (SIGUSR1), program glowny (czyli cw3c.c) i proces macierzysty czekaja za pomoca funkcji sleep i
-wysylaja sygnal do calej grupy (-getpgid(pid) oznacza pobranie pgidu procesu potomnego i ustawienie go na -, co oznacza
-cala grupe dla kill), uprzednio sprawdzajac czy w ogole istnieja. Pod koniec wypisuje informacje w forkleader oraz w cw3c
-o procesach ktore zostaly zakonczone, samoistnie albo przez sygnal
-
-Aby skompilować i uruchomic cw3c.c oraz wczesniej skompilowac cw3a:
-    make run_cw3c
-
+Aby skompilować i uruchomic cw5b.c:
+    make run_cw5b
 
 Aby wyczyscic zawartosc katalogu (usunac zbedne pliki), nalezy wykonac:
     make clean

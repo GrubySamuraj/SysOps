@@ -22,6 +22,7 @@ int main(int argc, char *argv[])
         case -1:
             perror("fork error");
             exit(1);
+            break;
         case 0:;
             // proces potomny
             // char pidString[] = getpid() + "\0";
