@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
     // argv[1] - nazwa programu potomnego
     // argv[2] - liczba procesów potomnych
     // argv[3] - liczba sekcji prywatnych
-    int numProcesses = 3; // argv[2]
+    int numProcesses = stoi(argv[2]); // argv[2]
     const char *semName = "/semPowielacz";
     sem_t *semaphore = createSem(semName);
     int val = chechSem(semaphore);
@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
     if (file == NULL)
     {
         perror("Błąd podczas otwierania pliku numer.txt");
-        return 1;
+        exit(EXIT_FAILURE);
     }
 
     fprintf(file, "0"); // Zapisanie wartości 0 do pliku

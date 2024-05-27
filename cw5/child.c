@@ -35,6 +35,7 @@ int main(int argc, char *argv[])
     }
     while ((bytes_read = read(fd_in, buffer, BUFFER_SIZE)) > 0)
     {
+        // producent
         // Zapisanie danych do potoku nazwanego
         int result = write(fd, buffer, bytes_read);
 
@@ -47,6 +48,11 @@ int main(int argc, char *argv[])
         {
             printf("Dane zostały pomyślnie zapisane do potoku nazwanego.\n");
         }
+    }
+    if (bytes_read == -1)
+    {
+        perror("Błąd w funkcji read");
+        exit(EXIT_FAILURE);
     }
     // Zamknięcie potoków
     close(fd);

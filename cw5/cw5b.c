@@ -53,6 +53,7 @@ int main(int argc, char *argv[])
     case 0:
     {
         // proces potomny
+        // producent
         printf("argv[3]: %s, argv[1]: %s\n", argv[3], argv[1]);
         if (execlp(argv[3], path, argv[1]) == -1)
         {
@@ -64,6 +65,7 @@ int main(int argc, char *argv[])
     default:
     {
         // proces macierzysty
+        // konsument
         printf("argv[4]: %s, argv[2]: %s\n", argv[4], argv[2]);
         if (execlp(argv[4], path, argv[2]) == -1)
         {

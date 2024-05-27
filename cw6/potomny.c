@@ -17,7 +17,26 @@ int main(int argc, char *argv[])
     waitSem(sem);
     // sekcja krytyczna
     printf("Proces potomny %d zajął semafor.\n", getpid());
+    FILE *file = fopen("numer.txt", "r");
+    if (file == NULL)
+    {
+        perror("Error opening file");
+        exit(EXIT_FAILURE);
+    }
+    int final_value;
+    fscanf(file, "%d", &final_value);
+    final_value++;
+    fclose(file);
     sleep(rand() % 3 + 1);
+    FILE *file = fopen("numer.txt", "w");
+    if (file == NULL)
+    {
+        perror("Błąd podczas otwierania pliku numer.txt");
+        exit(EXIT_FAILURE);
+    }
+
+    fprintf(file, final_value);
+    fclose(file);
     val = chechSem(sem);
     printf("Proces potomny w sekcji krytycznej %d zajął semafor. i ma id: %d oraz val: %d\n", getpid(), sem, val);
     raiseSem(sem);
