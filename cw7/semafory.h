@@ -17,7 +17,7 @@
 #ifndef _SEMAFORY_H_
 #define _SEMAFORY_H_
 // tworzenie semafora
-sem_t *createSem(const char *name)
+sem_t *createSem(const char *name, unsigned int value)
 {
     sem_t *sem = sem_open(name, O_CREAT, S_IRUSR | S_IWUSR, 1);
     if (sem == SEM_FAILED)
@@ -28,6 +28,7 @@ sem_t *createSem(const char *name)
         exit(EXIT_FAILURE);
         return NULL;
     }
+    printf("utworzono semafor: %s\n", name);
     return sem;
 }
 // otwieranie
@@ -69,6 +70,7 @@ int raiseSem(sem_t *sem)
     return 1;
 }
 
+// opuszczenie  semafora
 int waitSem(sem_t *sem)
 {
     if (sem_wait(sem) == -1)

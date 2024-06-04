@@ -68,4 +68,17 @@ int unMapMem(int *addr, int size)
     }
     return 1;
 }
+
+int removeMem(char *name)
+{
+    if (unlink(name) == -1)
+    {
+        perror("Nie udało się usunąć pamięci dzielonej\n");
+        printf("line: %d \n", __LINE__);
+        printf("file: %s \n", __FILE__);
+        exit(EXIT_FAILURE);
+        return 0;
+    }
+    return 1;
+}
 #endif

@@ -7,7 +7,9 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-#define BUFFER_SIZE 8
+// Jakub Dragosz
+
+#define BUFFER_SIZE 50
 
 void removeFifo()
 {
@@ -51,6 +53,7 @@ int main(int argc, char *argv[])
     case 0:
     {
         // proces potomny
+        // producent
         char buffer[BUFFER_SIZE];
         fd_in = open(argv[1], O_RDONLY);
         fd = open(path, O_WRONLY);
@@ -95,7 +98,7 @@ int main(int argc, char *argv[])
         // proces macierzysty
         char buffer[BUFFER_SIZE];
         close(argv[2]);
-        fd_out = open(argv[2], O_WRONLY | O_TRUNC);
+        fd_out = open(argv[2], O_WRONLY | O_TRUNC | O_CREAT);
         if (fd_out == -1)
         {
             perror("Failed to open writeFile");

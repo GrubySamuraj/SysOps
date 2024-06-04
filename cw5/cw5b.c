@@ -7,6 +7,8 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
+// Jakub Dragosz
+
 #define BUFFER_SIZE 8
 
 void removeFifo()

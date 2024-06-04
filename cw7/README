@@ -1,20 +1,16 @@
 Jakub Dragosz 15.05.2024
 
-Programy z cwiczenia 6 skladają się z:
-- biblioteki semafory.h, gdzie znajdują się funkcje do obsługi semaforów - tworzenie, otwieranie, uzyskiwanie wartosci, operowanie:
- a) podniesienie semafora
- b) obnizenie semafora, zamykanie oraz usuwanie semafora,
-main.c, gdzie jest zapisywane do pliku tekstowego informacje o danym semaforze i wywołuje on funkcje fork z execlp, jako parametr
-podaje się nazwę programu do odpalenia, w tym przypadku jest to program potomny.c, który wypisuje kiedy semafor jest opuszczony,
-PID procesu oraz kiedy jest podniesiony, a także PID procesu. Program główny czeka na zakończenie procesu potomnego.
+Program z cwiczenia 7 sklada sie z 3: producent.c, konsument.c oraz cw7.c, sluzy on do synchronizowania za pomocą semaforów konsumenta i producenta, aby producent mógł zapisywać plik do pamięci dzielonej, a konsument czytał z niej i zapisywał do pliku
+Korzystają one z biblioteki dzielona.h, gdzie są funkcje odpowiedzialne za używanie pamięci dzielonej, a w semafory.h, są funkcje
+odpowiedzialne za semafory
 
-Jak skompilować programy:
-=========================
-Aby skompilować i uruchomic main.c:
-    make run_main
+# Jak skompilować programy:
+
+Aby skompilować i uruchomic cw7.c:
+make run_cw7
 
 Aby wyczyscic zawartosc katalogu (usunac zbedne pliki), nalezy wykonac:
-    make clean
+make clean
 
 W celu archiwizacji oraz kompresji katalogu nalezy wykonac:
-    make tar
+make tar

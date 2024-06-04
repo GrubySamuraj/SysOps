@@ -5,6 +5,8 @@
 #include <unistd.h>
 #include <semaphore.h>
 #include <wait.h>
+#include <signal.h>
+#include <assert.h>
 #include "semafory.h"
 #include "dzielona.h"
 
@@ -16,6 +18,15 @@
 // argv[3] - nazwa pliku konsumenta do zapisywania
 // argv[4] - nazwa pliku producenta do czytania
 
+void sigint_handler(int sig)
+{
+    printf("\nOtrzymano sygnał SIGINT (Ctrl+C).\n");
+    assert(removeSem("/semKonsument"));
+    assert(removeSem("/semProducent"));
+    assert(removeMem("/memProdKons"));
+    exit(EXIT_SUCCESS);
+}
+
 int main(int argc, char *argv[])
 {
     // Segment pamieci dzielonej
@@ -24,13 +35,24 @@ int main(int argc, char *argv[])
         char bufor[NBUF][NELE]; // Wspolny bufor danych
         int wstaw, wyjmij;      // Pozycje wstawiania i wyjmowania z bufora
     } SegmentPD;
+    if (signal(SIGINT, sigint_handler) == SIG_ERR)
+    {
+        perror("Błąd podczas rejestracji obsługi sygnału SIGINT");
+        exit(EXIT_FAILURE);
+    }
     const char *semKonsumentName = "/semKonsument";
     const char *semProducentName = "/semProducent";
     const char *memName = "/memProdKons";
-    sem_t *semKonsument = createSem(semKonsumentName);
-    sem_t *semProducent = createSem(semProducentName);
+    // removeMem(memName);
+    sem_t *semKonsument = createSem(semKonsumentName, 0);
+    sem_t *semProducent = createSem(semProducentName, NBUF);
     int mem = createMem(memName, sizeof(SegmentPD));
     int pid = fork();
+    if (argc != 5)
+    {
+        perror("Zła ilosc argumentow, powinno byc 5\n");
+        exit(EXIT_FAILURE);
+    }
     switch (pid)
     {
     case -1:
@@ -41,7 +63,7 @@ int main(int argc, char *argv[])
     case 0:
         // child
         // producent
-        if (execlp(argv[1], semKonsumentName, semProducentName, NULL) == -1)
+        if (execlp(argv[1], argv[1], semKonsumentName, semProducentName, argv[4], memName, (char *)NULL) == -1)
         {
             perror("execlp error w child");
             exit(EXIT_FAILURE);
@@ -50,7 +72,7 @@ int main(int argc, char *argv[])
     default:
         // parent
         // konsument
-        if (execlp(argv[2], semProducentName, NULL) == -1)
+        if (execlp(argv[2], argv[2], semKonsumentName, semProducentName, argv[3], memName, (char *)NULL) == -1)
         {
             perror("execlp error w parent");
             exit(EXIT_FAILURE);
@@ -62,4 +84,7 @@ int main(int argc, char *argv[])
         }
         break;
     }
+    removeMem(memName);
+    removeSem(semKonsumentName);
+    removeSem(semProducentName);
 }
