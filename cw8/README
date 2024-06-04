@@ -1,20 +1,18 @@
-Jakub Dragosz 15.05.2024
+Jakub Dragosz 4.06.2024
 
-Programy z cwiczenia 6 skladają się z:
-- biblioteki semafory.h, gdzie znajdują się funkcje do obsługi semaforów - tworzenie, otwieranie, uzyskiwanie wartosci, operowanie:
- a) podniesienie semafora
- b) obnizenie semafora, zamykanie oraz usuwanie semafora,
-main.c, gdzie jest zapisywane do pliku tekstowego informacje o danym semaforze i wywołuje on funkcje fork z execlp, jako parametr
-podaje się nazwę programu do odpalenia, w tym przypadku jest to program potomny.c, który wypisuje kiedy semafor jest opuszczony,
-PID procesu oraz kiedy jest podniesiony, a także PID procesu. Program główny czeka na zakończenie procesu potomnego.
+Programy z cw8 skladaja sie z:
+kolejka.h - jest to biblioteka z funkcjami, które obsługują kolejki komunikatów
+client.c - klient, do którego się wpisuje działania w postaci: 2+2, a on tworzy i zapisuje swoją kolejkę, aby ją wysłąć do serwera,
+a następnie wypisuje odpowiedź, czyli wynik równania
+serwer.c - serwer, który odbiera z kolejki równanie, liczy je i przesyła na klienta, za pomocą kolejki komunikatów
 
-Jak skompilować programy:
-=========================
+# Jak skompilować programy:
+
 Aby skompilować i uruchomic main.c:
-    make run_main
+make run_main
 
 Aby wyczyscic zawartosc katalogu (usunac zbedne pliki), nalezy wykonac:
-    make clean
+make clean
 
 W celu archiwizacji oraz kompresji katalogu nalezy wykonac:
-    make tar
+make tar
