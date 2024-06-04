@@ -1,0 +1,16 @@
+Jakub Dragosz 4.06.2024
+
+Program cw9 wykorzystuje wątki do wypisywania komunikatów w zależności od tego czy jest on w sekcji prywatnej - wypisuje po lewej
+czy w sekcji krytycznej - wypisuje po prawej, wykorzystuje on mutexy - narzędzie do synchronizacji procesów
+
+# Jak skompilować programy:
+
+Aby skompilować i uruchomic main.c:
+make run_main
+make run
+
+Aby wyczyscic zawartosc katalogu (usunac zbedne pliki), nalezy wykonac:
+make clean
+
+W celu archiwizacji oraz kompresji katalogu nalezy wykonac:
+make tar
